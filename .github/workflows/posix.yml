@@ -84,8 +84,8 @@ jobs:
     #   with:
     #     limit-access-to-actor: true
 
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
+    # - name: Set up QEMU
+    #  uses: docker/setup-qemu-action@v3
 
     - name: Build and Test wheels
       uses: pypa/cibuildwheel@v3.1.4
@@ -115,22 +115,3 @@ jobs:
       with:
         name: openblas-${{ matrix.os }}-${{ matrix.PLAT }}-${{ matrix.INTERFACE64 }}-${{ matrix.MB_ML_LIBC }}-${{ matrix.MB_ML_VER }}
         path: dist/openblas*.tar.gz
-
-    - uses: conda-incubator/setup-miniconda@v3.2.0
-      with:
-        channels: conda-forge
-        channel-priority: true
-        activate-environment: upload
-        miniforge-version: latest
-        conda-remove-defaults: "true"
-
-    - name: Upload
-      # see https://github.com/marketplace/actions/setup-miniconda for why
-      # `-el {0}` is required.
-      shell: bash -el {0}
-      env:
-       ANACONDA_SCIENTIFIC_PYTHON_UPLOAD: ${{ secrets.ANACONDA_SCIENTIFIC_PYTHON_UPLOAD }}
-      run: |
-        conda install -y anaconda-client
-        source tools/upload_to_anaconda_staging.sh
-        upload_wheels
