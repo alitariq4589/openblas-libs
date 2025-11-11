@@ -62,7 +62,7 @@ jobs:
 
     - name: Install libatomic
       run: |
-        sudo apt-get install -y libatomic1
+        sudo apt-get install -y libatomic1 python3
 
     - uses: actions/checkout@v4.1.1
       with:
