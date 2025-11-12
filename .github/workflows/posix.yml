@@ -95,8 +95,8 @@ jobs:
 
     - name: Build and Test wheels
 #      uses: pypa/cibuildwheel@v3.1.4
-      with:
-        output-dir: dist
+#      with:
+#        output-dir: dist
       env:
         CIBW_ARCHS: ${{matrix.PLAT}}
         CIBW_BUILD_VERBOSITY: 1
