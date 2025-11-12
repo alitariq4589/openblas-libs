@@ -28,7 +28,7 @@ jobs:
           # - { os: ubuntu-latest, PLAT: x86_64, INTERFACE64: '0', MB_ML_VER: '2014', MB_ML_LIBC: manylinux}
           # - { os: ubuntu-latest, PLAT: x86_64, INTERFACE64: '1', MB_ML_VER: '2014', MB_ML_LIBC: manylinux}
 
-          - { os: ubuntu-latest, PLAT: riscv64, INTERFACE64: '0', MB_ML_VER: '_2_39', MB_ML_LIBC: manylinux}
+         #  - { os: ubuntu-latest, PLAT: riscv64, INTERFACE64: '0', MB_ML_VER: '_2_39', MB_ML_LIBC: manylinux}
           - { os: ubuntu-latest, PLAT: riscv64, INTERFACE64: '1', MB_ML_VER: '_2_39', MB_ML_LIBC: manylinux}
 
         # - { os: macos-14, PLAT: x86_64, INTERFACE64: '0', MB_ML_LIBC: macosx}
@@ -67,6 +67,7 @@ jobs:
     - name: Install docker
       run: |
         sudo apt-get install -y docker.io
+        sudo usermod -aG docker $USER
 
     - uses: actions/checkout@v4.1.1
       with:
