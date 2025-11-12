@@ -70,6 +70,7 @@ jobs:
         whoami
         sudo usermod -aG docker `whoami`
         newgrp docker
+        sudo systemctl status docker
         sudo docker ps
 
     - uses: actions/checkout@v4.1.1
