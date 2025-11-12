@@ -62,8 +62,11 @@ jobs:
 
     - name: Install libatomic
       run: |
-        cat /proc/meminfo
         sudo apt-get install -y libatomic1
+
+    - name: Install docker
+      run: |
+        sudo apt-get install -y docker.io
 
     - uses: actions/checkout@v4.1.1
       with:
