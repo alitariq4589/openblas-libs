@@ -108,6 +108,10 @@ jobs:
         CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
         CIBW_MUSLLINUX_AARCH64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
         CIBW_MANYLINUX_RISCV64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
+      run: |
+        sudo apt-get install -y python3
+        python -m pip install cibuildwheel==3.1.4
+        python -m cibuildwheel --output-dir dist
 
     - name: Upload wheels to artifacts
       uses: actions/upload-artifact@v4.3.0
