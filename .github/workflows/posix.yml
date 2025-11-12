@@ -62,7 +62,7 @@ jobs:
 
     - name: Install libatomic
       run: |
-        cat /proc/cpuinfo
+        cat /proc/meminfo
         sudo apt-get install -y libatomic1
 
     - uses: actions/checkout@v4.1.1
