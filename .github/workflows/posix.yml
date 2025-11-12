@@ -62,7 +62,8 @@ jobs:
 
     - name: Install libatomic
       run: |
-        sudo apt-get install -y libatomic1 python3
+        cat /proc/cpuinfo
+        sudo apt-get install -y libatomic1
 
     - uses: actions/checkout@v4.1.1
       with:
@@ -93,7 +94,7 @@ jobs:
     #  uses: docker/setup-qemu-action@v3
 
     - name: Build and Test wheels
-      uses: pypa/cibuildwheel@v3.1.4
+#      uses: pypa/cibuildwheel@v3.1.4
       with:
         output-dir: dist
       env:
@@ -107,6 +108,10 @@ jobs:
         CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
         CIBW_MUSLLINUX_AARCH64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
         CIBW_MANYLINUX_RISCV64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
+     run: |
+       sudo apt-get install -y python3
+       python -m pip install cibuildwheel==3.1.4
+       python -m cibuildwheel --output-dir dist
 
     - name: Upload wheels to artifacts
       uses: actions/upload-artifact@v4.3.0
