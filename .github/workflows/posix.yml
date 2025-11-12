@@ -64,14 +64,9 @@ jobs:
       run: |
         sudo apt-get install -y libatomic1
 
-    - name: Install docker
+    - name: Install podman
       run: |
-        sudo apt-get install -y docker.io
-        whoami
-        sudo usermod -aG docker `whoami`
-        newgrp docker
-        sudo systemctl status docker
-        sudo docker ps
+        sudo apt -y install podman
 
     - uses: actions/checkout@v4.1.1
       with:
@@ -116,6 +111,7 @@ jobs:
         CIBW_MANYLINUX_AARCH64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
         CIBW_MUSLLINUX_AARCH64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
         CIBW_MANYLINUX_RISCV64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
+        CIBW_CONTAINER_ENGINE: podman
       run: |
         sudo apt-get install -y python3-pip python3-venv
         python3 -m venv cibw
