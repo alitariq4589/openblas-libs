@@ -64,12 +64,6 @@ jobs:
       run: |
         sudo apt-get install -y libatomic1
 
-    - name: Install podman
-      run: |
-        sudo apt -y install podman
-        sudo podman ps
-        sudo podman run --rm -i -t quay.io/pypa/manylinux_2_39_riscv64:2025.08.15-1 /bin/ls /opt
-
     - uses: actions/checkout@v4.1.1
       with:
         submodules: recursive
