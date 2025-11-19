@@ -108,6 +108,7 @@ jobs:
         CIBW_MUSLLINUX_AARCH64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
         CIBW_MANYLINUX_RISCV64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
         CIBW_CONTAINER_ENGINE: podman
+        MAKEFLAGS: -j32
       run: |
         sudo apt-get install -y python3-pip python3-venv
         python3 -m venv cibw
