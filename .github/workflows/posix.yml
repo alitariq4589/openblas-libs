@@ -113,7 +113,7 @@ jobs:
         python3 -m venv cibw
         . cibw/bin/activate
         pip install cibuildwheel==3.1.4
-        python -m cibuildwheel --output-dir dist
+        sudo -E bash -c '. cibw/bin/activate; python -m cibuildwheel --output-dir dist'
 
     - name: Upload wheels to artifacts
       uses: actions/upload-artifact@v4.3.0
