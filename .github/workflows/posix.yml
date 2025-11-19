@@ -63,7 +63,7 @@ jobs:
     - name: Install libatomic
       run: |
         sudo apt-get install -y libatomic1
-	sudo rm -rf /home/runner/_work/openblas-libs/openblas-libs/dist
+        sudo rm -rf /home/runner/_work/openblas-libs/openblas-libs/dist
         mkdir -p /home/runner/_work/openblas-libs/openblas-libs
 
     - uses: actions/checkout@v4.1.1
@@ -110,7 +110,7 @@ jobs:
         CIBW_MUSLLINUX_AARCH64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
         CIBW_MANYLINUX_RISCV64_IMAGE: ${{ matrix.MB_ML_LIBC }}${{matrix.MB_ML_VER}}
         CIBW_CONTAINER_ENGINE: podman
-        CIBW_ENVIRONMENT: "MAKEFLAGS=-j32"
+        CIBW_ENVIRONMENT: "MAKE_NB_JOBS=16"
 
       run: |
         sudo apt-get install -y python3-pip python3-venv
