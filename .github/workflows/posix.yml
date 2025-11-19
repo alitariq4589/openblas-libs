@@ -68,8 +68,7 @@ jobs:
       run: |
         sudo apt -y install podman
         sudo podman ps
-        echo "trying without sudo"
-        podman ps
+        sudo podman run --rm -i -t quay.io/pypa/manylinux_2_39_riscv64:2025.08.15-1 /bin/ls /opt
 
     - uses: actions/checkout@v4.1.1
       with:
