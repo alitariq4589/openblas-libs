@@ -235,6 +235,9 @@ EOF
             BINARY="$bitness" $interface_flags \
             TARGET="$target"
     fi
+    echo "================================="
+    cat Makefile.conf
+    echo "================================="
     make PREFIX=$BUILD_PREFIX $interface_flags install
     popd
     if [ "$nightly" = "1" ]; then
