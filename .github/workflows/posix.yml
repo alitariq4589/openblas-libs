@@ -113,11 +113,14 @@ jobs:
         CIBW_CONTAINER_ENGINE: podman
 
       run: |
-        sudo apt-get install -y python3-pip python3-venv
-        python3 -m venv cibw
-        . cibw/bin/activate
-        pip install cibuildwheel==3.1.4
-        sudo -E bash -c '. cibw/bin/activate; python -m cibuildwheel --output-dir dist'
+        cd OpenBLAS
+        export CFLAGS=' -fvisibility=protected -Wno-uninitialized'
+        make BUFFERSIZE=20 DYNAMIC_ARCH=1 QUIET_MAKE=1 USE_OPENMP=0 NUM_THREADS=64 BINARY= INTERFACE64=1 SYMBOLSUFFIX=64_ LIBNAMESUFFIX=64_ OBJCONV=/project/objconv/objconv SYMBOLPREFIX=scipy_ LIBNAMEPREFIX=scipy_ FIXED_LIBNAME=1 TARGET=GENERIC
+#        sudo apt-get install -y python3-pip python3-venv
+#        python3 -m venv cibw
+#        . cibw/bin/activate
+#        pip install cibuildwheel==3.1.4
+#        sudo -E bash -c '. cibw/bin/activate; python -m cibuildwheel --output-dir dist'
 
 
     - name: Upload wheels to artifacts
