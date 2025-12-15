@@ -126,6 +126,8 @@ jobs:
 
       run: |
         cd OpenBLAS
+        sudo chown -R $(id -u):$(id -g) . || true
+
         make clean
         echo "cd /root" > run.sh
         echo 'export CFLAGS="-fvisibility=protected -Wno-uninitialized"' >> run.sh
