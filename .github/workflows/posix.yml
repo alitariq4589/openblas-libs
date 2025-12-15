@@ -60,12 +60,12 @@ jobs:
 
     steps:
 
-    - name: Install libatomic
+    - name: Install prerequisites
       run: |
-        sudo podman info
-        sudo apt-get install -y libatomic1
-        sudo rm -rf /home/runner/_work/openblas-libs/openblas-libs/dist
-        mkdir -p /home/runner/_work/openblas-libs/openblas-libs
+        sudo apt update && sudo apt install docker libatomic1 -y
+        sudo docker info
+        sudo rm -rf "$HOME/_work/openblas-libs/openblas-libs/dist"
+        mkdir -p "$HOME/_work/openblas-libs/openblas-libs"
 
     - uses: actions/checkout@v4.1.1
       with:
