@@ -125,6 +125,8 @@ jobs:
         CIBW_CONTAINER_ENGINE: podman
 
       run: |
+        #!/bin/bash
+        set -exu
         cd OpenBLAS
         sudo chown -R $(id -u):$(id -g) . || true
 
