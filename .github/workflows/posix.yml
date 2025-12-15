@@ -100,7 +100,15 @@ jobs:
 
     # - name: Set up QEMU
     #  uses: docker/setup-qemu-action@v3
-
+    - name: Check Environment
+      run: |
+        podman --version
+        sudo podman info
+        nproc --all
+        uname -a
+        lscpu
+        free -h
+        df -h
     - name: Build and Test wheels
 #      uses: pypa/cibuildwheel@v3.1.4
 #      with:
@@ -129,7 +137,7 @@ jobs:
         sudo podman run \
         --rm \
         --cpus="0" \
-        --cpuset-cpus="0-$(nproc --all)" \
+        --cpuset-cpus="0-$(($(nproc --all) - 1))" \
         -v "$(pwd):/root" \
         quay.io/pypa/manylinux_2_39_riscv64:latest \
         /root/run.sh
