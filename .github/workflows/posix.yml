@@ -102,8 +102,6 @@ jobs:
     #  uses: docker/setup-qemu-action@v3
     - name: Check Environment
       run: |
-        podman --version
-        sudo podman info
         nproc --all
         uname -a
         lscpu
