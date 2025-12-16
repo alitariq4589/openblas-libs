@@ -63,12 +63,15 @@ jobs:
     - name: Install prerequisites
       run: |
         sudo apt update && sudo apt install podman docker.io libatomic1 -y
-        sudo docker info
         # Start Docker daemon if not running
-        sudo systemctl start docker || true
-        sudo systemctl enable docker || true
+        
+        dockerd \
+          --host=unix:///var/run/docker.sock \
+          --storage-driver=overlay2 &
+        
+          sudo docker info
 
-        # sudo usermod -aG docker $USER
+        sudo usermod -aG docker $USER
 
         sudo rm -rf "$HOME/_work/openblas-libs/openblas-libs/dist"
         mkdir -p "$HOME/_work/openblas-libs/openblas-libs"
