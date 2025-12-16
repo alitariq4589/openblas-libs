@@ -64,14 +64,12 @@ jobs:
       run: |
         sudo apt update && sudo apt install podman docker.io libatomic1 -y
         # Start Docker daemon if not running
-        
-        dockerd \
+        sudo usermod -aG docker $USER
+        sudo dockerd \
           --host=unix:///var/run/docker.sock \
           --storage-driver=overlay2 &
         
           sudo docker info
-
-        sudo usermod -aG docker $USER
 
         sudo rm -rf "$HOME/_work/openblas-libs/openblas-libs/dist"
         mkdir -p "$HOME/_work/openblas-libs/openblas-libs"
