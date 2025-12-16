@@ -68,7 +68,7 @@ jobs:
         sudo apt update && sudo apt install podman docker.io libatomic1 -y
         
         # Start Docker daemon if not running
-        sudo usermod -aG docker $USER
+        sudo usermod -aG docker "$USER"
         
         sudo dockerd \
           --host=unix:///var/run/docker.sock \
