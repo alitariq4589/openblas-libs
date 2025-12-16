@@ -136,7 +136,7 @@ jobs:
         echo 'make -j$(nproc) BUFFERSIZE=20 DYNAMIC_ARCH=1 QUIET_MAKE=1 USE_OPENMP=0 NUM_THREADS=64 BINARY= INTERFACE64=1     SYMBOLSUFFIX=64_ LIBNAMESUFFIX=64_ OBJCONV=/project/objconv/objconv SYMBOLPREFIX=scipy_ LIBNAMEPREFIX=scipy_    FIXED_LIBNAME=1 TARGET=GENERIC' >> run.sh
         chmod +x run.sh
 
-        sudo docker run \
+        docker run \
           --rm \
           --cpus="0" \
           --cpuset-cpus="0-$(($(nproc --all) - 1))" \
