@@ -70,9 +70,7 @@ jobs:
         # Start Docker daemon if not running
         sudo usermod -aG docker $(whoami)
         
-        sudo dockerd \
-          --host=unix:///var/run/docker.sock \
-          --storage-driver=vfs &
+        sudo dockerd --host=unix:///var/run/docker.sock --storage-driver=vfs --detach &
 
         
         sudo docker info
