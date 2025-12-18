@@ -59,7 +59,10 @@ jobs:
       OS-NAME: ${{ matrix.os }}
 
     steps:
-
+    - name: Check user
+      run: |
+        whoami
+        id 
     - name: Install prerequisites
       run: |
         #!/bin/bash
