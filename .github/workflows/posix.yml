@@ -70,13 +70,14 @@ jobs:
 
         sudo apt update && sudo apt install make podman docker.io libatomic1 build-essential -y
         
-        # Start Docker daemon if not running
-        sudo usermod -aG docker $(whoami)
+        # # Start Docker daemon if not running
+        # sudo usermod -aG docker $(whoami)
         
-        sudo dockerd --host=unix:///var/run/docker.sock --storage-driver=vfs --detach &
+        # sudo dockerd --host=unix:///var/run/docker.sock --storage-driver=vfs --detach &
 
         
-        sudo docker info
+        docker info
+        docker --version
 
         sudo rm -rf "$HOME/_work/openblas-libs/openblas-libs/dist"
         mkdir -p "$HOME/_work/openblas-libs/openblas-libs"
