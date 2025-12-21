@@ -133,26 +133,17 @@ jobs:
         set -exu
         cd OpenBLAS
         sudo chown -R $(id -u):$(id -g) . || true
-      
-        make clean
-        echo "#!/bin/bash" > run.sh                                 # ADD THIS LINE!
-        echo "cd /root" >> run.sh
-        echo 'export CFLAGS="-fvisibility=protected -Wno-uninitialized"' >> run.sh
-        echo 'make -j$(nproc) BUFFERSIZE=20 DYNAMIC_ARCH=1 QUIET_MAKE=1 USE_OPENMP=0 NUM_THREADS=64 BINARY= INTERFACE64=1 SYMBOLSUFFIX=64_        LIBNAMESUFFIX=64_ OBJCONV=/project/objconv/objconv SYMBOLPREFIX=scipy_ LIBNAMEPREFIX=scipy_ FIXED_LIBNAME=1 TARGET=GENERIC' >> run.sh
-        chmod +x run.sh
         
-        pwd
-
-        cat run.sh
-        readlink -f run.sh
-
-        docker run \
+        make clean
+        
+        # Create tarball and pipe directly into docker container
+        tar czf - . | docker run \
           --rm \
           --cpus="0" \
           --cpuset-cpus="0-$(($(nproc --all) - 1))" \
-          -v "$(pwd):/root" \
+          -i \
           quay.io/pypa/manylinux_2_39_riscv64:latest \
-          /root/run.sh
+          bash -c 'mkdir -p /root/openblas && cd /root/openblas && tar xzf - && export CFLAGS="-fvisibility=protected -Wno-uninitialized" && make -j$(nproc) BUFFERSIZE=20 DYNAMIC_ARCH=1 QUIET_MAKE=1 USE_OPENMP=0 NUM_THREADS=64 BINARY= INTERFACE64=1 SYMBOLSUFFIX=64_ LIBNAMESUFFIX=64_ OBJCONV=/project/objconv/objconv SYMBOLPREFIX=scipy_ LIBNAMEPREFIX=scipy_ FIXED_LIBNAME=1 TARGET=GENERIC'
       
       
     - name: Upload wheels to artifacts
