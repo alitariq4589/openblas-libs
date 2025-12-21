@@ -143,6 +143,9 @@ jobs:
         
         pwd
 
+        cat run.sh
+        readlink -f run.sh
+
         docker run \
           --rm \
           --cpus="0" \
